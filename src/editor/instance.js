@@ -146,14 +146,54 @@ export default function (instanceClass) {
       const DialogManager = globalThis.SDKExtensions.EditorDialogManager;
 
       const editorID = "editor-tool-" + this._inst.GetUID();
+      const self = this;
+
+      // Function to load and execute the UI script
+      const loadUIScript = async (dialogElement) => {
+        const container = dialogElement.querySelector(`#${editorID}-root`);
+        UI.init(container);
+
+        try {
+          // Create a blob URL for the UI script wrapped as a module
+          const moduleCode = `
+            export default function(UI, Editor) {
+              ${uiCode}
+            }
+          `;
+          const blob = new Blob([moduleCode], {
+            type: "application/javascript",
+          });
+          const moduleUrl = URL.createObjectURL(blob);
+
+          // Import the module
+          const module = await import(moduleUrl);
+
+          // Execute the UI function
+          module.default(UI, self.GetEditorObject());
+
+          // Clean up the blob URL
+          URL.revokeObjectURL(moduleUrl);
+        } catch (e) {
+          console.error("Error in UI script:", e);
+          container.innerHTML =
+            "<p style='color:red;'>Error loading UI script. Check the console for details.</p>";
+        }
+      };
+
       let existingWindow = DialogManager.getWindow(editorID);
       if (existingWindow) {
         DialogManager.focusWindow(editorID);
         if (existingWindow.isMinimized) {
           DialogManager.restoreWindow(editorID);
         }
+        // Update the content of the existing window
+        const dialogElement = existingWindow.element;
+        DialogManager.updateWindowTitle(
+          editorID,
+          this.GetObjectType().GetName()
+        );
+        await loadUIScript(dialogElement);
       } else {
-        const self = this;
         const windowWidth = this._inst.GetPropertyValue("width") || 600;
         const windowHeight = this._inst.GetPropertyValue("height") || 500;
         existingWindow = DialogManager.createWindow({
@@ -162,38 +202,7 @@ export default function (instanceClass) {
           width: windowWidth,
           height: windowHeight,
           content: createInitialContent(editorID),
-          onInit: async (dialogElement) => {
-            // Initialize UI system
-            const container = dialogElement.querySelector(`#${editorID}-root`);
-            UI.init(container);
-
-            // Load and run the UI script as a module
-            try {
-              // Create a blob URL for the UI script wrapped as a module
-              const moduleCode = `
-                export default function(UI, Editor) {
-                  ${uiCode}
-                }
-              `;
-              const blob = new Blob([moduleCode], {
-                type: "application/javascript",
-              });
-              const moduleUrl = URL.createObjectURL(blob);
-
-              // Import the module
-              const module = await import(moduleUrl);
-
-              // Execute the UI function
-              module.default(UI, self.GetEditorObject());
-
-              // Clean up the blob URL
-              URL.revokeObjectURL(moduleUrl);
-            } catch (e) {
-              console.error("Error in UI script:", e);
-              container.innerHTML =
-                "<p style='color:red;'>Error loading UI script. Check the console for details.</p>";
-            }
-          },
+          onInit: loadUIScript,
         });
       }
     }
