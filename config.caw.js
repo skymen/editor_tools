@@ -12,8 +12,9 @@ export const name = "Editor Tools";
 export const version = _version;
 export const minConstructVersion = undefined;
 export const author = "skymen";
-export const website = "https://www.construct.net";
-export const documentation = "https://www.construct.net";
+export const website = "https://github.com/skymen/editor_tools/";
+export const documentation =
+  "https://github.com/skymen/editor_tools/blob/main/API_DOCUMENTATION.md";
 export const description = "Description";
 export const category = ADDON_CATEGORY.GENERAL;
 

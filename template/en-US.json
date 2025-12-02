@@ -6,7 +6,7 @@
       "editor_tools": {
         "name": "Editor Tools",
         "description": "Description",
-        "help-url": "https://www.construct.net",
+        "help-url": "https://github.com/skymen/editor_tools/blob/main/API_DOCUMENTATION.md",
         "aceCategories": {
           "Ace_Folders_In_Category_Folder": "Ace_Folders_In_Category_Folder",
           "Aces_Files_In_Category_Folder": "Aces_Files_In_Category_Folder",
