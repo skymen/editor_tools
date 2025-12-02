@@ -7,8 +7,8 @@ import {
 import _version from "./version.js";
 export const addonType = ADDON_TYPE.PLUGIN;
 export const type = PLUGIN_TYPE.OBJECT;
-export const id = "sample_addon";
-export const name = "Sample Addon";
+export const id = "editor_tools";
+export const name = "Editor Tools";
 export const version = _version;
 export const minConstructVersion = undefined;
 export const author = "skymen";
@@ -114,4 +114,26 @@ export const properties = [
     desc: "Property Description",
   }
   */
+  {
+    type: PROPERTY_TYPE.PROJECTFILE,
+    id: "src",
+    options: {
+      filter: ".js",
+    },
+    name: "UI Script",
+    desc: "The .js file that creates the UI.",
+  },
+  {
+    type: PROPERTY_TYPE.LINK,
+    id: "open",
+    options: {
+      linkCallback: function (inst) {
+        inst.ShowEditorDialog();
+      },
+      linkText: "Open",
+      callbackType: "for-each-instance",
+    },
+    name: "Open",
+    desc: "Open the editor window.",
+  },
 ];
