@@ -17,6 +17,14 @@
             "name": "UI Script",
             "desc": "The .js file that creates the UI."
           },
+          "width": {
+            "name": "Window Width",
+            "desc": "The width of the editor window in pixels."
+          },
+          "height": {
+            "name": "Window Height",
+            "desc": "The height of the editor window in pixels."
+          },
           "open": {
             "name": "Open",
             "desc": "Open the editor window.",

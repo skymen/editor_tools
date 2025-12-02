@@ -124,6 +124,26 @@ export const properties = [
     desc: "The .js file that creates the UI.",
   },
   {
+    type: PROPERTY_TYPE.INTEGER,
+    id: "width",
+    options: {
+      initialValue: 600,
+      minValue: 200,
+    },
+    name: "Window Width",
+    desc: "The width of the editor window in pixels.",
+  },
+  {
+    type: PROPERTY_TYPE.INTEGER,
+    id: "height",
+    options: {
+      initialValue: 500,
+      minValue: 200,
+    },
+    name: "Window Height",
+    desc: "The height of the editor window in pixels.",
+  },
+  {
     type: PROPERTY_TYPE.LINK,
     id: "open",
     options: {

@@ -78,11 +78,13 @@ export default function (instanceClass) {
         }
       } else {
         const self = this;
+        const windowWidth = this._inst.GetPropertyValue("width") || 600;
+        const windowHeight = this._inst.GetPropertyValue("height") || 500;
         existingWindow = DialogManager.createWindow({
           id: editorID,
           title: this.GetObjectType().GetName(),
-          width: 600,
-          height: 500,
+          width: windowWidth,
+          height: windowHeight,
           content: createInitialContent(editorID),
           onInit: async (dialogElement) => {
             // Initialize UI system
