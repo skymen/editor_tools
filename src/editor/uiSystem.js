@@ -72,7 +72,7 @@ export default {
   // Layout containers
   BeginHorizontal() {
     const row = document.createElement("div");
-    row.className = "row";
+    row.className = "et-row";
     this.currentParent.appendChild(row);
     this.currentParent = row;
     return row;
@@ -86,7 +86,7 @@ export default {
 
   BeginVertical() {
     const col = document.createElement("div");
-    col.className = "col";
+    col.className = "et-col";
     this.currentParent.appendChild(col);
     this.currentParent = col;
     return col;

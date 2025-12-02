@@ -5,7 +5,83 @@ export default function (instanceClass) {
   }
   function createInitialContent(id) {
     return `
-      <div id="${id}-root" style="width:100%; height:100%; box-sizing:border-box; padding:10px; overflow:auto;">
+      <style>
+        #${id}-root {
+          width: 100%;
+          box-sizing: border-box;
+          padding: 20px;
+        }
+
+        #${id}-root * {
+          box-sizing: border-box;
+        }
+
+        #${id}-root input,
+        #${id}-root textarea,
+        #${id}-root select {
+          padding: 4px 10px;
+          border: 1px solid var(--gray5, #292929);
+          background: var(--gray7, #383838);
+          color: var(--gray27, #d6d6d6);
+          border-radius: 4px;
+          font-size: 14px;
+          width: 100%;
+        }
+
+        #${id}-root button {
+          padding: 10px 20px;
+          border: 1px solid var(--turquoise, #29f3d0);
+          background: var(--gray9, #474747);
+          color: var(--turquoise, #29f3d0);
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 14px;
+          margin: 4px 4px 4px 0;
+        }
+
+        #${id}-root button:hover {
+          background: var(--gray11, #575757);
+        }
+
+        #${id}-root label {
+          display: block;
+          margin: 12px 0 4px 0;
+          font-weight: 500;
+          color: var(--gray27, #d6d6d6);
+        }
+
+        #${id}-root h1,
+        #${id}-root h2,
+        #${id}-root h3,
+        #${id}-root h4,
+        #${id}-root h5,
+        #${id}-root h6 {
+          margin: 2px 0 8px 0;
+          color: var(--gray22, #b0b0b0);
+        }
+
+        #${id}-root p {
+          margin: 8px 0;
+          color: var(--gray27, #d6d6d6);
+        }
+
+        #${id}-root hr {
+          border: none;
+          border-top: 1px solid var(--gray5, #292929);
+          margin: 16px 0;
+        }
+
+        #${id}-root .et-row {
+          display: flex;
+          gap: 16px;
+          margin: 8px 0;
+        }
+
+        #${id}-root .et-col {
+          flex: 1;
+        }
+      </style>
+      <div id="${id}-root">
       </div>
     `;
   }
