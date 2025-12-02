@@ -77,22 +77,39 @@ export default function (instanceClass) {
           DialogManager.restoreWindow(editorID);
         }
       } else {
-        debugger;
+        const self = this;
         existingWindow = DialogManager.createWindow({
           id: editorID,
           title: this.GetObjectType().GetName(),
           width: 600,
           height: 500,
           content: createInitialContent(editorID),
-          onInit: (dialogElement) => {
+          onInit: async (dialogElement) => {
             // Initialize UI system
             const container = dialogElement.querySelector(`#${editorID}-root`);
             UI.init(container);
 
-            // Evaluate and run the UI script
+            // Load and run the UI script as a module
             try {
-              const uiFunction = new Function("UI", "Editor", uiCode);
-              uiFunction(UI, this.GetEditorObject());
+              // Create a blob URL for the UI script wrapped as a module
+              const moduleCode = `
+                export default function(UI, Editor) {
+                  ${uiCode}
+                }
+              `;
+              const blob = new Blob([moduleCode], {
+                type: "application/javascript",
+              });
+              const moduleUrl = URL.createObjectURL(blob);
+
+              // Import the module
+              const module = await import(moduleUrl);
+
+              // Execute the UI function
+              module.default(UI, self.GetEditorObject());
+
+              // Clean up the blob URL
+              URL.revokeObjectURL(moduleUrl);
             } catch (e) {
               console.error("Error in UI script:", e);
               container.innerHTML =
