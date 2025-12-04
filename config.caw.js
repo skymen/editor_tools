@@ -12,7 +12,8 @@ export const name = "Editor Tools";
 export const version = _version;
 export const minConstructVersion = undefined;
 export const author = "skymen";
-export const website = "https://github.com/skymen/editor_tools/";
+export const website =
+  "https://www.construct.net/en/make-games/addons/1535/editor-tools/";
 export const documentation =
   "https://github.com/skymen/editor_tools/blob/main/API_DOCUMENTATION.md";
 export const description = "Description";
