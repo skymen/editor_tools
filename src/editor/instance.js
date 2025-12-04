@@ -122,11 +122,11 @@ export default function (instanceClass) {
         if (
           confirm(
             "The Theme Editor requires the 'Editor Window Manager' addon to function.\n\n" +
-              "Would you like to visit the GitHub page to install it?"
+              "Would you like to visit the addon page to install it?"
           )
         ) {
           window.open(
-            "https://github.com/skymen/editor-window-manager/tree/main?tab=readme-ov-file",
+            "https://www.construct.net/en/make-games/addons/1534/editor-window-manager",
             "_blank"
           );
         }
@@ -194,6 +194,7 @@ export default function (instanceClass) {
         );
         await loadUIScript(dialogElement);
       } else {
+        debugger;
         const windowWidth = this._inst.GetPropertyValue("width") || 600;
         const windowHeight = this._inst.GetPropertyValue("height") || 500;
         existingWindow = DialogManager.createWindow({
